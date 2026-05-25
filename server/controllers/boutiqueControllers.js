@@ -1,5 +1,5 @@
 import "dotenv/config";
-import Boutique from "../models/Boutique.js";
+import Boutique from "../modules/Boutique.js";
 
 // ─── CREATE BOUTIQUE (Owner only) ──────────────────
 export const createBoutique = async (req, res) => {
@@ -34,9 +34,7 @@ export const createBoutique = async (req, res) => {
 // ─── GET ALL BOUTIQUES (Everyone can see) ──────────
 export const getAllBoutiques = async (req, res) => {
   try {
-    const boutiques = await Boutique.find({ isApproved: true })
-      .populate("owner", "name email");  // shows owner name + email
-
+    const boutiques = await Boutique.find().populate("owner", "name email");
     res.status(200).json(boutiques);
 
   } catch (error) {
